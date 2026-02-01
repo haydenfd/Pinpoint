@@ -1,13 +1,12 @@
-/* style.css */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Optional: Smooth out that scrollbar you added in the popup */
-/* .custom-scrollbar::-webkit-scrollbar {
-  width: 5px;
+
+@layer base {
+  html, body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
 }
-.custom-scrollbar::-webkit-scrollbar-thumb {
-  background: #ea1d65;
-  border-radius: 10px;
-} */

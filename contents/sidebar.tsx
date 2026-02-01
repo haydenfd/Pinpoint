@@ -25,7 +25,7 @@ export const getOverlayAnchor: PlasmoGetOverlayAnchor = async () => {
   return document.body
 }
 
-const SIDEBAR_WIDTH = 360
+const SIDEBAR_WIDTH = 420
 
 /**
  * Sidebar overlay that hosts the bookmark manager UI.
