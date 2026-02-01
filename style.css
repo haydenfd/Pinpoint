@@ -1,0 +1,13 @@
+/* style.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Optional: Smooth out that scrollbar you added in the popup */
+/* .custom-scrollbar::-webkit-scrollbar {
+  width: 5px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #ea1d65;
+  border-radius: 10px;
+} */
