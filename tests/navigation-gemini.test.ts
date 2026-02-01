@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from "vitest"
-import { navigateGemini } from "../utils/navigation/gemini"
+import { navigateGemini } from "@utils/navigation/gemini"
 
 describe("navigateGemini", () => {
   it("redirects to gemini.google.com when on a different origin", () => {

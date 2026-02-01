@@ -1,7 +1,7 @@
 import type { PlasmoCSConfig } from "plasmo"
 import { useEffect, useRef, useState } from "react"
 import { BookmarkCheck } from "lucide-react"
-import { MATCHES } from "../utils/matches"
+import { MATCHES } from "@utils/matches"
 
 export const config: PlasmoCSConfig = {
   matches: MATCHES

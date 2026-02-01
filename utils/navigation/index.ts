@@ -1,6 +1,6 @@
-import type { Platform } from "../../types/platform"
-import { navigateChatGPT } from "./chatgpt"
-import { navigateGemini } from "./gemini"
+import type { Platform } from "@types/platform"
+import { navigateChatGPT } from "@utils/navigation/chatgpt"
+import { navigateGemini } from "@utils/navigation/gemini"
 
 /**
  * Platform-aware navigation entry point used by the sidebar list.

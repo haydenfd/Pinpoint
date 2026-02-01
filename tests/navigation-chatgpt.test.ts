@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from "vitest"
-import { navigateChatGPT } from "../utils/navigation/chatgpt"
+import { navigateChatGPT } from "@utils/navigation/chatgpt"
 
 describe("navigateChatGPT", () => {
   it("redirects to chatgpt.com when on a different origin", () => {

@@ -1,4 +1,4 @@
-import type { Platform } from "../../types/platform"
+import type { Platform } from "@types/platform"
 
 /**
  * Normalized navigation context used to locate a specific response.

@@ -1,19 +1,23 @@
 {
   "extends": "plasmo/templates/tsconfig.base",
-  "exclude": [
-    "node_modules"
-  ],
+  "exclude": ["node_modules"],
   "include": [
     ".plasmo/index.d.ts",
     "./**/*.ts",
     "./**/*.tsx"
   ],
   "compilerOptions": {
+    "jsx": "react-jsx",
+    "baseUrl": ".",
     "paths": {
-      "~*": [
-        "./*"
-      ]
-    },
-    "baseUrl": "."
+      "@assets/*": ["assets/*"],
+      "@background/*": ["background/*"],
+      "@components/*": ["components/*"],
+      "@contents/*": ["contents/*"],
+      "@platform/*": ["platform/*"],
+      "@tests/*": ["tests/*"],
+      "@types/*": ["types/*"],
+      "@utils/*": ["utils/*"]
+    }
   }
 }

@@ -5,7 +5,7 @@ import type {
 import { useStorage } from "@plasmohq/storage/hook"
 import { Bookmark } from "lucide-react"
 import { useMemo } from "react"
-import type { BookmarkEntry } from "../types/bookmark"
+import type { BookmarkEntry } from "@types/bookmark"
 
 export const config: PlasmoCSConfig = {
   matches: ["https://chatgpt.com/*", "https://chat.openai.com/*"]

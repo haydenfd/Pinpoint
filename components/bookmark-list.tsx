@@ -1,8 +1,8 @@
 import { useState, useMemo, useRef, useEffect } from "react"
 import { useStorage } from "@plasmohq/storage/hook"
 import { Pencil, Trash2, Check, X, ExternalLink } from "lucide-react"
-import type { BookmarkEntry } from "../types/bookmark"
-import { navigateToBookmark } from "~utils/navigation"
+import type { BookmarkEntry } from "@types/bookmark"
+import { navigateToBookmark } from "@utils/navigation"
 
 const PLATFORM_OPTIONS = [
   { id: "all", label: "All Platforms" },

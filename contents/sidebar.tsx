@@ -1,11 +1,10 @@
 import type { PlasmoCSConfig, PlasmoGetOverlayAnchor } from "plasmo"
 import { useEffect, useState } from "react"
 import cssText from "data-text:./sidebar.css"
-import BookmarkList from "../components/bookmark-list"
-import { MATCHES } from "../utils/matches"
+import BookmarkList from "@components/bookmark-list"
 
 export const config: PlasmoCSConfig = {
-  matches: MATCHES
+  matches: ["<all_urls>"]
 }
 
 /**

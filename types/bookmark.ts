@@ -1,4 +1,4 @@
-import type { Platform } from "./platform"
+import type { Platform } from "@types/platform"
 
 /**
  * Stored bookmark payload for a specific LLM response.

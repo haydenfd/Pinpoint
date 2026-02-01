@@ -1,5 +1,5 @@
-import { PLATFORMS } from "./platforms"
-import type { Platform } from "../types/platform"
+import { PLATFORMS } from "@platform/platforms"
+import type { Platform } from "@types/platform"
 
 /**
  * Detects which supported platform the current host matches.

@@ -5,7 +5,7 @@ import type {
 import { useMemo } from "react"
 import { useStorage } from "@plasmohq/storage/hook"
 import { Bookmark, BookmarkCheck } from "lucide-react"
-import type { BookmarkEntry } from "../types/bookmark"
+import type { BookmarkEntry } from "@types/bookmark"
 
 export const config: PlasmoCSConfig = {
   matches: ["https://gemini.google.com/*"]
