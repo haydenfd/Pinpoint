@@ -3,6 +3,5 @@
  */
 export const MATCHES = [
   "https://chatgpt.com/*",
-  "https://chat.openai.com/*",
-  "https://gemini.google.com/*"
+  "https://chat.openai.com/*"
 ]

@@ -94,7 +94,6 @@ Fully supported:
 
 Partially supported or planned:
 
-- Gemini
 - Claude
 
 Bookmarks from different platforms are stored together and can be filterable by source. Navigation back to a specific response is currently implemented for ChatGPT only. Support for other platforms will be added once stable DOM anchors are available.

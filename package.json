@@ -1,8 +1,8 @@
 {
   "name": "llm-bookmarks",
-  "displayName": "Llm bookmarks",
+  "displayName": "Pinpoint",
   "version": "0.0.1",
-  "description": "Bookmarks for your LLM chats",
+  "description": "Bookmark and return to specific messages in LLM chats",
   "author": "Hayden D'Souza <haydenfds@gmail.com>",
   "scripts": {
     "dev": "plasmo dev",

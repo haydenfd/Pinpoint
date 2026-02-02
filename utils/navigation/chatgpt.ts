@@ -1,15 +1,24 @@
 const CHATGPT_ORIGIN = "https://chatgpt.com"
 
+export function buildChatGPTUrl(conversationId: string, turnId: string) {
+  return `${CHATGPT_ORIGIN}/c/${conversationId}?bookmark=${turnId}`
+}
+
 /**
  * Navigates to a ChatGPT conversation and scrolls to the target turn.
  * Handles external origins, cross-conversation jumps, and in-page scrolling.
  */
 export function navigateChatGPT(
   conversationId: string,
-  turnId: string
+  turnId: string,
+  options?: { openInNewTab?: boolean }
 ) {
-  const targetUrl =
-    `${CHATGPT_ORIGIN}/c/${conversationId}?bookmark=${turnId}`
+  const targetUrl = buildChatGPTUrl(conversationId, turnId)
+
+  if (options?.openInNewTab) {
+    window.open(targetUrl, "_blank", "noopener")
+    return
+  }
 
   if (window.location.origin !== CHATGPT_ORIGIN) {
     window.location.href = targetUrl

@@ -1,1 +1,1 @@
-export type Platform = "chatgpt" | "gemini"
+export type Platform = "chatgpt"

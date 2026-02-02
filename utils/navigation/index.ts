@@ -1,6 +1,5 @@
 import type { Platform } from "@types/platform"
 import { navigateChatGPT } from "@utils/navigation/chatgpt"
-import { navigateGemini } from "@utils/navigation/gemini"
 
 /**
  * Platform-aware navigation entry point used by the sidebar list.
@@ -8,15 +7,10 @@ import { navigateGemini } from "@utils/navigation/gemini"
 export function navigateToBookmark(
   platform: Platform,
   conversationId: string,
-  turnId: string
+  turnId: string,
+  options?: { openInNewTab?: boolean }
 ) {
   if (platform === "chatgpt") {
-    navigateChatGPT(conversationId, turnId)
-    return
-  }
-
-  if (platform === "gemini") {
-    navigateGemini(conversationId, turnId)
-    return
+    navigateChatGPT(conversationId, turnId, options)
   }
 }
