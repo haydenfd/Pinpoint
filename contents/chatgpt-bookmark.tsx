@@ -83,6 +83,17 @@ export function BookmarkButton({ anchor }) {
   const [bookmarks, setBookmarks] =
     useStorage<BookmarkEntry[]>("my-bookmarks", [])
 
+  const buildTitleExcerpt = (text: string, maxChars = 160) => {
+    const trimmed = text.trim()
+    if (trimmed.length <= maxChars) return trimmed
+    const slice = trimmed.slice(0, maxChars)
+    const lastSpace = slice.lastIndexOf(" ")
+    if (lastSpace > 40) {
+      return `${slice.slice(0, lastSpace)}…`
+    }
+    return `${slice}…`
+  }
+
   /**
    * Extracts the conversation + message identifiers needed to locate a response later.
    */
@@ -102,10 +113,7 @@ export function BookmarkButton({ anchor }) {
     const rawText =
       article.querySelector(".markdown")?.textContent?.trim() ?? ""
 
-    const title =
-      rawText.length > 30
-        ? rawText.slice(0, 35) + "…"
-        : rawText
+    const title = rawText ? buildTitleExcerpt(rawText) : "Untitled response"
 
     return {
       conversationId,

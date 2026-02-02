@@ -31,8 +31,11 @@ function IndexPopup() {
       <div className="p-5 flex flex-col items-center gap-4">
         
         <div className="text-center w-full">
-          <span className="text-sm font-medium text-neutral-400 block mb-1">
-            LLM Bookmarks
+          <span className="text-sm font-semibold text-neutral-200 block">
+            Pinpoint
+          </span>
+          <span className="text-[11px] text-neutral-400">
+            LLM chat bookmark manager
           </span>
         </div>
 

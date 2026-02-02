@@ -12,9 +12,5 @@ export const PLATFORMS: PlatformConfig[] = [
   {
     id: "chatgpt",
     hosts: ["chatgpt.com", "openai.com"]
-  },
-  {
-    id: "gemini",
-    hosts: ["gemini.google.com"]
   }
 ]

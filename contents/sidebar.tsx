@@ -2,6 +2,8 @@ import type { PlasmoCSConfig, PlasmoGetOverlayAnchor } from "plasmo"
 import { useEffect, useState } from "react"
 import cssText from "data-text:./sidebar.css"
 import { BookmarkList } from "@components/bookmark-list"
+import { SettingsPanel } from "@components/settings-panel"
+import { Settings, X } from "lucide-react"
 
 export const config: PlasmoCSConfig = {
   matches: ["<all_urls>"]
@@ -47,6 +49,7 @@ const SIDEBAR_WIDTH = 420
  */
 export function Sidebar() {
   const [isOpen, setIsOpen] = useState(false)
+  const [showSettings, setShowSettings] = useState(false)
 
   useEffect(() => {
     const handleMessage = (request: any) => {
@@ -79,18 +82,42 @@ return (
       >
         {/* Header: shrink-0 ensures it doesn't get squished */}
         <div className="flex-shrink-0 px-4 py-3 border-b border-neutral-800 flex items-center justify-between">
-          <h2 className="text-lg font-semibold text-white">LLM Bookmarks</h2>
-          <button
-            onClick={() => setIsOpen(false)}
-            className="p-2 text-neutral-400 hover:text-white hover:bg-neutral-800 rounded-lg transition"
-          >
-            ✕
-          </button>
+          <div>
+            <h2 className="text-lg font-semibold text-white">Pinpoint</h2>
+            <p className="text-[11px] text-neutral-400">
+              Bookmark manager for LLM chats
+            </p>
+          </div>
+          <div className="flex items-center gap-1">
+            {!showSettings && (
+              <button
+                onClick={() => setShowSettings(true)}
+                className="h-8 w-8 inline-flex items-center justify-center rounded-lg text-neutral-400 transition hover:bg-neutral-800 hover:text-white"
+                aria-label="Open settings"
+              >
+                <Settings size={16} />
+              </button>
+            )}
+            <button
+              onClick={() => {
+                setIsOpen(false)
+                setShowSettings(false)
+              }}
+              className="h-8 w-8 inline-flex items-center justify-center rounded-lg text-neutral-400 transition hover:bg-neutral-800 hover:text-white"
+              aria-label="Close sidebar"
+            >
+              <X size={16} />
+            </button>
+          </div>
         </div>
 
         {/* Content Area: flex-1 takes remaining space, overflow-hidden keeps scrollbar at this level */}
         <div className="flex-1 overflow-hidden flex flex-col px-4 py-4">
-          <BookmarkList />
+          {showSettings ? (
+            <SettingsPanel onBack={() => setShowSettings(false)} />
+          ) : (
+            <BookmarkList />
+          )}
         </div>
       </div>
     </div>

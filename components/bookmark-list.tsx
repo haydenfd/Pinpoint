@@ -1,15 +1,9 @@
 import { useMemo, useState } from "react"
 import { useStorage } from "@plasmohq/storage/hook"
-import { ChevronDown } from "lucide-react"
 
 import type { BookmarkEntry } from "@types/bookmark"
+import type { BookmarkSettings } from "@types/settings"
 import { BookmarkItem } from "@components/bookmark-item"
-
-const PLATFORM_OPTIONS = [
-  { id: "all", label: "All Platforms" },
-  { id: "chatgpt", label: "ChatGPT" },
-  { id: "gemini", label: "Gemini" }
-]
 
 /**
  * Main bookmark manager list with search, platform filter, and sorting.
@@ -17,22 +11,22 @@ const PLATFORM_OPTIONS = [
 export function BookmarkList() {
   const [bookmarks, setBookmarks] =
     useStorage<BookmarkEntry[]>("my-bookmarks", [])
+  const [settings] = useStorage<BookmarkSettings>(
+    "llm-bookmark-settings",
+    { openInNewTab: true }
+  )
   const [searchQuery, setSearchQuery] = useState("")
-  const [selectedPlatform, setSelectedPlatform] = useState("all")
 
   /**
-   * Applies platform + text filters and sorts by newest first.
+   * Applies text filters and sorts by newest first.
    */
   const filteredBookmarks = useMemo(() => {
     return (bookmarks || [])
       .filter((b) =>
-        selectedPlatform === "all" ? true : b.platform === selectedPlatform
-      )
-      .filter((b) =>
         b.title.toLowerCase().includes(searchQuery.toLowerCase())
       )
       .sort((a, b) => b.createdAt - a.createdAt)
-  }, [bookmarks, selectedPlatform, searchQuery])
+  }, [bookmarks, searchQuery])
 
   /**
    * Updates the title for a single bookmark entry.
@@ -62,7 +56,7 @@ export function BookmarkList() {
 
   return (
     <div className="flex flex-col gap-4">
-      {/* Search & Filter */}
+      {/* Search */}
       <div className="flex flex-col gap-2" onKeyDown={(e) => e.stopPropagation()}>
         <input
           type="text"
@@ -79,41 +73,6 @@ export function BookmarkList() {
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
         />
-
-        {/* Platform select with custom caret */}
-        <div className="relative">
-          <select
-            value={selectedPlatform}
-            onChange={(e) => setSelectedPlatform(e.target.value)}
-            className="
-              w-full h-9
-              appearance-none
-              rounded-md
-              bg-neutral-800 border border-neutral-700
-              px-3 pr-9
-              text-sm text-white
-              outline-none
-              focus:border-purple-500
-              cursor-pointer
-            "
-          >
-            {PLATFORM_OPTIONS.map((p) => (
-              <option key={p.id} value={p.id}>
-                {p.label}
-              </option>
-            ))}
-          </select>
-
-          <ChevronDown
-            size={16}
-            className="
-              pointer-events-none
-              absolute right-3 top-1/2
-              -translate-y-1/2
-              text-neutral-400
-            "
-          />
-        </div>
       </div>
 
       <div className="flex max-h-[calc(100vh-220px)] flex-col gap-2 overflow-y-auto pr-1 custom-scrollbar">
@@ -128,6 +87,7 @@ export function BookmarkList() {
               bookmark={b}
               onUpdate={handleUpdate}
               onDelete={handleDelete}
+              openInNewTab={!!settings?.openInNewTab}
             />
           ))
         )}
