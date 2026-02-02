@@ -19,7 +19,7 @@ const TOAST_DURATION = 1200
 const SLIDE_IN_MS = 450
 const SLIDE_OUT_MS = 280
 
-export default function BookmarkToast() {
+export function BookmarkToast() {
   const [visible, setVisible] = useState(false)
   const [isExiting, setIsExiting] = useState(false)
 
@@ -69,3 +69,5 @@ export default function BookmarkToast() {
     </div>
   )
 }
+
+export default BookmarkToast

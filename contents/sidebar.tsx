@@ -1,7 +1,7 @@
 import type { PlasmoCSConfig, PlasmoGetOverlayAnchor } from "plasmo"
 import { useEffect, useState } from "react"
 import cssText from "data-text:./sidebar.css"
-import BookmarkList from "@components/bookmark-list"
+import { BookmarkList } from "@components/bookmark-list"
 
 export const config: PlasmoCSConfig = {
   matches: ["<all_urls>"]
@@ -13,16 +13,30 @@ export const config: PlasmoCSConfig = {
  */
 export const getStyle = () => {
   const style = document.createElement("style")
-  style.textContent = cssText
+  style.textContent = `
+    :host {
+      all: initial;
+      position: fixed;
+      inset: 0;
+      z-index: 2147483647;
+      pointer-events: none;
+    }
+
+    :host, :host * {
+      box-sizing: border-box;
+    }
+
+    ${cssText}
+  `
   return style
 }
 
 /**
- * Anchors the overlay to the document body so it can be positioned fixed
- * and span the full viewport height.
+ * Anchors the overlay to the document root so it doesn't participate
+ * in any site-owned layout containers.
  */
 export const getOverlayAnchor: PlasmoGetOverlayAnchor = async () => {
-  return document.body
+  return document.documentElement
 }
 
 const SIDEBAR_WIDTH = 420
@@ -31,7 +45,7 @@ const SIDEBAR_WIDTH = 420
  * Sidebar overlay that hosts the bookmark manager UI.
  * It listens for runtime messages so other extension entry points can toggle it.
  */
-const Sidebar = () => {
+export function Sidebar() {
   const [isOpen, setIsOpen] = useState(false)
 
   useEffect(() => {
@@ -48,46 +62,39 @@ const Sidebar = () => {
     }
   }, [])
 
-  return (
-    <div
-      className={`
-        fixed top-0 right-0 h-screen
-        bg-neutral-900 text-neutral-100
-        shadow-2xl
-        transition-transform duration-500 ease-in-out
-        ${isOpen ? "translate-x-0" : "translate-x-full"}
-      `}
-      style={{
-        width: SIDEBAR_WIDTH,
-        zIndex: 2147483647
-      }}
-    >
-      <div className="flex h-full flex-col px-4 py-3">
-        {/* Header */}
-        <div className="mb-4 flex items-center justify-between border-b border-neutral-800 pb-3">
-          <div>
-            <h2 className="text-lg font-semibold text-white">
-              LLM Bookmarks
-            </h2>
-
-          </div>
-
+return (
+    <div className="fixed inset-0 pointer-events-none">
+      <div
+        className={`
+          absolute top-0 right-0 h-screen flex flex-col
+          bg-neutral-900 text-neutral-100
+          shadow-2xl
+          transition-transform duration-500 ease-in-out
+          pointer-events-auto
+          ${isOpen ? "translate-x-0" : "translate-x-full"}
+        `}
+        style={{
+          width: SIDEBAR_WIDTH
+        }}
+      >
+        {/* Header: shrink-0 ensures it doesn't get squished */}
+        <div className="flex-shrink-0 px-4 py-3 border-b border-neutral-800 flex items-center justify-between">
+          <h2 className="text-lg font-semibold text-white">LLM Bookmarks</h2>
           <button
             onClick={() => setIsOpen(false)}
             className="p-2 text-neutral-400 hover:text-white hover:bg-neutral-800 rounded-lg transition"
-            aria-label="Close sidebar"
           >
             ✕
           </button>
         </div>
 
-        {/* Content */}
-        <div className="flex-1 overflow-y-auto custom-scrollbar">
+        {/* Content Area: flex-1 takes remaining space, overflow-hidden keeps scrollbar at this level */}
+        <div className="flex-1 overflow-hidden flex flex-col px-4 py-4">
           <BookmarkList />
         </div>
       </div>
     </div>
-  )
+)
 }
 
 export default Sidebar

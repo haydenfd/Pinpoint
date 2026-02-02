@@ -79,7 +79,7 @@ export const getInlineAnchorList: PlasmoGetInlineAnchorList = async () => {
  * Bookmark button inserted next to the ChatGPT response action buttons.
  * Resolves message metadata from the surrounding DOM and toggles storage.
  */
-const BookmarkButton = ({ anchor }) => {
+export function BookmarkButton({ anchor }) {
   const [bookmarks, setBookmarks] =
     useStorage<BookmarkEntry[]>("my-bookmarks", [])
 
@@ -177,7 +177,6 @@ const BookmarkButton = ({ anchor }) => {
       `}
     >
       <Bookmark
-        // Icon size is now controlled via CSS for 100% precision
         strokeWidth={2}
         fill={isBookmarked ? "currentColor" : "none"}
       />

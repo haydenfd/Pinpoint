@@ -65,7 +65,7 @@ function extractGeminiContext(anchorEl: HTMLElement) {
   }
 }
 
-const BookmarkButton = ({ anchor }) => {
+export function BookmarkButton({ anchor }) {
   const element = anchor?.element as HTMLElement | undefined
 
   const [bookmarks, setBookmarks] =

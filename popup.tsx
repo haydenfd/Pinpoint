@@ -1,17 +1,16 @@
 import "~style.css"
 import { useStorage } from "@plasmohq/storage/hook"
+import { useEffect, useState } from "react"
 
-/**
- * Popup UI for the extension toolbar icon.
- * Keeps the popup lightweight while delegating the real UI to the content sidebar.
- */
 function IndexPopup() {
   const [bookmarks] = useStorage("my-bookmarks", [])
+  const [isMac, setIsMac] = useState(false)
 
-  /**
-   * Requests the active tab to toggle the sidebar overlay, then closes the popup
-   * to keep the browser UI uncluttered after the click.
-   */
+  // Check OS on mount to show correct shortcut icons
+  useEffect(() => {
+    setIsMac(navigator.platform.toUpperCase().indexOf("MAC") >= 0)
+  }, [])
+
   const openManager = async () => {
     const [tab] = await chrome.tabs.query({
       active: true,
@@ -24,26 +23,46 @@ function IndexPopup() {
       type: "TOGGLE_BOOKMARK_MANAGER"
     })
     
-    // Optional: Close the popup window after clicking
     window.close()
   }
 
   return (
-    <div className="min-w-[260px] bg-neutral-950 text-neutral-100 border border-neutral-800 shadow-2xl">
-      <div className="p-4 flex flex-col items-center gap-4">
+    <div className="min-w-[280px] bg-neutral-950 text-neutral-100 border border-neutral-800 shadow-2xl overflow-hidden rounded-none">
+      <div className="p-5 flex flex-col items-center gap-4">
+        
         <div className="text-center w-full">
-          <span className="text-sm font-semibold block">
+          <span className="text-sm font-medium text-neutral-400 block mb-1">
             LLM Bookmarks
           </span>
         </div>
 
         <button
           onClick={openManager}
-          className="w-full px-6 py-2.5 bg-blue-600 hover:bg-blue-500 active:bg-blue-700 
-                     text-xs font-bold tracking-wide transition-colors"
+          className="w-full px-6 py-3 bg-purple-800 hover:bg-purple-400 active:scale-[0.98]
+                     text-white text-sm font-semibold rounded-md transition-all shadow-lg shadow-purple-500/20"
         >
           Open Bookmark Manager
         </button>
+
+        {/* Shortcut Hint Section */}
+        <div className="flex items-center gap-2 text-[10px] text-neutral-500 uppercase tracking-widest font-bold">
+          <span>or</span>
+          <div className="flex gap-1.5 items-center">
+            {isMac ? (
+              <>
+                <kbd className="px-1.5 py-0.5 rounded border border-neutral-700 bg-neutral-900 text-xs font-sans">⌘</kbd>
+                <kbd className="px-1.5 py-0.5 rounded border border-neutral-700 bg-neutral-900 text-xs font-sans">⇧</kbd>
+                <kbd className="px-1.5 py-0.5 rounded border border-neutral-700 bg-neutral-900 text-xs font-sans">P</kbd>
+              </>
+            ) : (
+              <>
+                <kbd className="px-1.5 py-0.5 rounded border border-neutral-700 bg-neutral-900 text-[10px]">Ctrl</kbd>
+                <kbd className="px-1.5 py-0.5 rounded border border-neutral-700 bg-neutral-900 text-[10px]">Shift</kbd>
+                <kbd className="px-1.5 py-0.5 rounded border border-neutral-700 bg-neutral-900 text-[10px]">P</kbd>
+              </>
+            )}
+          </div>
+        </div>
       </div>
     </div>
   )
