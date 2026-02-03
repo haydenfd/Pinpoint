@@ -7,7 +7,6 @@ export {}
  * Used for the keyboard shortcut registered in the extension manifest.
  */
 chrome.commands.onCommand.addListener(async (command) => {
-  // This should show up in the Service Worker console
   log("Command received in background:", command)
 
   if (command === "toggle-sidebar") {
@@ -25,11 +24,11 @@ chrome.commands.onCommand.addListener(async (command) => {
       }
 
       log(`Sending message to Tab ID: ${tab.id}`)
-      
+
       const response = await chrome.tabs.sendMessage(tab.id, {
         type: "TOGGLE_BOOKMARK_MANAGER"
       })
-      
+
       log("Message sent successfully. Sidebar response:", response)
     } catch (error) {
       error("Error during sidebar toggle:", error)

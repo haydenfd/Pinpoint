@@ -1,11 +1,9 @@
-import type {
-  PlasmoCSConfig,
-  PlasmoGetInlineAnchorList
-} from "plasmo"
-import { useStorage } from "@plasmohq/storage/hook"
-import { Bookmark } from "lucide-react"
-import { useMemo } from "react"
 import type { BookmarkEntry } from "@types/bookmark"
+import { Bookmark } from "lucide-react"
+import type { PlasmoCSConfig, PlasmoGetInlineAnchorList } from "plasmo"
+import { useMemo } from "react"
+
+import { useStorage } from "@plasmohq/storage/hook"
 
 export const config: PlasmoCSConfig = {
   matches: ["https://chatgpt.com/*", "https://chat.openai.com/*"]
@@ -80,8 +78,7 @@ export const getInlineAnchorList: PlasmoGetInlineAnchorList = async () => {
  * Resolves message metadata from the surrounding DOM and toggles storage.
  */
 export function BookmarkButton({ anchor }) {
-  const [bookmarks, setBookmarks] =
-    useStorage<BookmarkEntry[]>("my-bookmarks", [])
+  const [bookmarks, setBookmarks] = useStorage<BookmarkEntry[]>("bookmarks", [])
 
   const buildTitleExcerpt = (text: string, maxChars = 160) => {
     const trimmed = text.trim()
@@ -165,9 +162,7 @@ export function BookmarkButton({ anchor }) {
         createdAt: Date.now()
       }
 
-      window.dispatchEvent(
-        new CustomEvent("llm-bookmark-added")
-      )
+      window.dispatchEvent(new CustomEvent("llm-bookmark-added"))
 
       return [...prev, entry]
     })
@@ -182,12 +177,8 @@ export function BookmarkButton({ anchor }) {
       className={`
         custom-bookmark-action
         ${isBookmarked ? "text-token-text-primary" : "text-token-text-secondary"}
-      `}
-    >
-      <Bookmark
-        strokeWidth={2}
-        fill={isBookmarked ? "currentColor" : "none"}
-      />
+      `}>
+      <Bookmark strokeWidth={2} fill={isBookmarked ? "currentColor" : "none"} />
     </button>
   )
 }

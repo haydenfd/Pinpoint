@@ -1,14 +1,14 @@
+import cssText from "data-text:~style.css"
+import { BookmarkCheck } from "lucide-react"
 import type { PlasmoCSConfig } from "plasmo"
 import { useEffect, useRef, useState } from "react"
-import { BookmarkCheck } from "lucide-react"
+
 import { MATCHES } from "~utils/matches"
-import cssText from "data-text:~style.css"
 
 export const config: PlasmoCSConfig = {
   matches: MATCHES
 }
 
-// THIS IS THE KEY: Plasmo needs this to inject your font stack into the Toast
 export const getStyle = () => {
   const style = document.createElement("style")
   style.textContent = cssText
@@ -60,10 +60,13 @@ export function BookmarkToast() {
         transform: isExiting ? "translateX(120%)" : "translateX(0)",
         opacity: isExiting ? 0 : 1,
         transition: `transform ${isExiting ? SLIDE_OUT_MS : SLIDE_IN_MS}ms cubic-bezier(0.16, 1, 0.3, 1), opacity ${isExiting ? SLIDE_OUT_MS : SLIDE_IN_MS}ms ease-out`
-      }}
-    >
+      }}>
       <div className="flex items-center gap-[10px] px-5 py-3 bg-neutral-900 text-white rounded-xl text-sm font-medium border border-purple-900 shadow-2xl">
-        <BookmarkCheck size={18} strokeWidth={2.5} className="text-purple-400" />
+        <BookmarkCheck
+          size={18}
+          strokeWidth={2.5}
+          className="text-purple-400"
+        />
         <span>Bookmarked</span>
       </div>
     </div>

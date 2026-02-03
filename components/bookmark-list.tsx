@@ -1,20 +1,18 @@
-import { useMemo, useState } from "react"
-import { useStorage } from "@plasmohq/storage/hook"
-
+import { BookmarkItem } from "@components/bookmark-item"
 import type { BookmarkEntry } from "@types/bookmark"
 import type { BookmarkSettings } from "@types/settings"
-import { BookmarkItem } from "@components/bookmark-item"
+import { useMemo, useState } from "react"
+
+import { useStorage } from "@plasmohq/storage/hook"
 
 /**
  * Main bookmark manager list with search, platform filter, and sorting.
  */
 export function BookmarkList() {
-  const [bookmarks, setBookmarks] =
-    useStorage<BookmarkEntry[]>("my-bookmarks", [])
-  const [settings] = useStorage<BookmarkSettings>(
-    "llm-bookmark-settings",
-    { openInNewTab: true }
-  )
+  const [bookmarks, setBookmarks] = useStorage<BookmarkEntry[]>("bookmarks", [])
+  const [settings] = useStorage<BookmarkSettings>("llm-bookmark-settings", {
+    openInNewTab: true
+  })
   const [searchQuery, setSearchQuery] = useState("")
 
   /**
@@ -22,9 +20,7 @@ export function BookmarkList() {
    */
   const filteredBookmarks = useMemo(() => {
     return (bookmarks || [])
-      .filter((b) =>
-        b.title.toLowerCase().includes(searchQuery.toLowerCase())
-      )
+      .filter((b) => b.title.toLowerCase().includes(searchQuery.toLowerCase()))
       .sort((a, b) => b.createdAt - a.createdAt)
   }, [bookmarks, searchQuery])
 
@@ -56,8 +52,9 @@ export function BookmarkList() {
 
   return (
     <div className="flex flex-col gap-4">
-      {/* Search */}
-      <div className="flex flex-col gap-2" onKeyDown={(e) => e.stopPropagation()}>
+      <div
+        className="flex flex-col gap-2"
+        onKeyDown={(e) => e.stopPropagation()}>
         <input
           type="text"
           placeholder="Search bookmarks..."

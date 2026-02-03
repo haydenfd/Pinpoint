@@ -1,11 +1,12 @@
-import { useStorage } from "@plasmohq/storage/hook"
-import { ChevronLeft } from "lucide-react"
-import { useState } from "react"
 import type { BookmarkEntry } from "@types/bookmark"
 import type { BookmarkSettings } from "@types/settings"
+import { ChevronLeft } from "lucide-react"
+import { useState } from "react"
+
+import { useStorage } from "@plasmohq/storage/hook"
 
 const SETTINGS_KEY = "llm-bookmark-settings"
-const BOOKMARKS_KEY = "my-bookmarks"
+const BOOKMARKS_KEY = "bookmarks"
 
 /**
  * Lightweight settings panel for destructive actions and navigation preferences.
@@ -15,12 +16,9 @@ type SettingsPanelProps = {
 }
 
 export function SettingsPanel({ onBack }: SettingsPanelProps) {
-  const [settings, setSettings] = useStorage<BookmarkSettings>(
-    SETTINGS_KEY,
-    {
-      openInNewTab: true
-    }
-  )
+  const [settings, setSettings] = useStorage<BookmarkSettings>(SETTINGS_KEY, {
+    openInNewTab: true
+  })
   const [, setBookmarks] = useStorage<BookmarkEntry[]>(BOOKMARKS_KEY, [])
   const [confirmingClear, setConfirmingClear] = useState(false)
 
@@ -39,8 +37,7 @@ export function SettingsPanel({ onBack }: SettingsPanelProps) {
       <button
         onClick={onBack}
         className="h-8 w-8 inline-flex items-center justify-center rounded-lg text-neutral-400 transition hover:bg-neutral-800 hover:text-white"
-        aria-label="Back to bookmarks"
-      >
+        aria-label="Back to bookmarks">
         <ChevronLeft size={16} />
       </button>
 
@@ -105,6 +102,7 @@ export function SettingsPanel({ onBack }: SettingsPanelProps) {
         </div>
       </section>
 
+      {/*
       <section className="flex flex-col gap-3 rounded-md border border-red-900/40 bg-red-950/10 p-3">
         <h3 className="text-xs font-semibold uppercase tracking-wide text-neutral-400">
           Clear bookmarks
@@ -129,6 +127,7 @@ export function SettingsPanel({ onBack }: SettingsPanelProps) {
           )}
         </div>
       </section>
+      */}
     </div>
   )
 }

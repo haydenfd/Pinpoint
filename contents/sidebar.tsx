@@ -1,9 +1,9 @@
-import type { PlasmoCSConfig, PlasmoGetOverlayAnchor } from "plasmo"
-import { useEffect, useState } from "react"
-import cssText from "data-text:./sidebar.css"
 import { BookmarkList } from "@components/bookmark-list"
 import { SettingsPanel } from "@components/settings-panel"
+import cssText from "data-text:./sidebar.css"
 import { Settings, X } from "lucide-react"
+import type { PlasmoCSConfig, PlasmoGetOverlayAnchor } from "plasmo"
+import { useEffect, useState } from "react"
 
 export const config: PlasmoCSConfig = {
   matches: ["<all_urls>"]
@@ -65,7 +65,7 @@ export function Sidebar() {
     }
   }, [])
 
-return (
+  return (
     <div className="fixed inset-0 pointer-events-none">
       <div
         className={`
@@ -78,9 +78,7 @@ return (
         `}
         style={{
           width: SIDEBAR_WIDTH
-        }}
-      >
-        {/* Header: shrink-0 ensures it doesn't get squished */}
+        }}>
         <div className="flex-shrink-0 px-4 py-3 border-b border-neutral-800 flex items-center justify-between">
           <div>
             <h2 className="text-lg font-semibold text-white">Pinpoint</h2>
@@ -93,8 +91,7 @@ return (
               <button
                 onClick={() => setShowSettings(true)}
                 className="h-8 w-8 inline-flex items-center justify-center rounded-lg text-neutral-400 transition hover:bg-neutral-800 hover:text-white"
-                aria-label="Open settings"
-              >
+                aria-label="Open settings">
                 <Settings size={16} />
               </button>
             )}
@@ -104,14 +101,11 @@ return (
                 setShowSettings(false)
               }}
               className="h-8 w-8 inline-flex items-center justify-center rounded-lg text-neutral-400 transition hover:bg-neutral-800 hover:text-white"
-              aria-label="Close sidebar"
-            >
+              aria-label="Close sidebar">
               <X size={16} />
             </button>
           </div>
         </div>
-
-        {/* Content Area: flex-1 takes remaining space, overflow-hidden keeps scrollbar at this level */}
         <div className="flex-1 overflow-hidden flex flex-col px-4 py-4">
           {showSettings ? (
             <SettingsPanel onBack={() => setShowSettings(false)} />
@@ -121,7 +115,7 @@ return (
         </div>
       </div>
     </div>
-)
+  )
 }
 
 export default Sidebar

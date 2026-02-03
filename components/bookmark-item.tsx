@@ -1,8 +1,8 @@
-import { useEffect, useRef, useState } from "react"
-import { Check, Pencil, Trash2, X } from "lucide-react"
 import type { BookmarkEntry } from "@types/bookmark"
 import { log } from "@utils/logger"
 import { navigateToBookmark } from "@utils/navigation"
+import { Check, Pencil, Trash2, X } from "lucide-react"
+import { useEffect, useRef, useState } from "react"
 
 type BookmarkItemProps = {
   bookmark: BookmarkEntry
@@ -52,14 +52,12 @@ export function BookmarkItem({
     <div
       className="group relative flex flex-col rounded-lg border border-neutral-800 bg-neutral-800/30 p-3 transition-all hover:border-neutral-600 hover:bg-neutral-800/80"
       onKeyDown={(e) => isEditing && stopHostCapture(e)}
-      onKeyUp={(e) => isEditing && stopHostCapture(e)}
-    >
+      onKeyUp={(e) => isEditing && stopHostCapture(e)}>
       <div className="mb-1.5 flex items-center justify-between">
         <span className="text-[10px] font-bold uppercase tracking-tighter text-purple-400 opacity-80">
           {bookmark.platform}
         </span>
-        
-        {/* Only show delete/edit actions when NOT editing */}
+
         {!isEditing && (
           <div className="flex gap-2 opacity-0 transition-opacity group-hover:opacity-100">
             <button
@@ -68,8 +66,7 @@ export function BookmarkItem({
                 setIsEditing(true)
               }}
               className="text-neutral-500 hover:text-white"
-              title="Edit title"
-            >
+              title="Edit title">
               <Pencil size={13} />
             </button>
             <button
@@ -78,8 +75,7 @@ export function BookmarkItem({
                 onDelete(bookmark.id)
               }}
               className="text-neutral-500 hover:text-red-400"
-              title="Delete bookmark"
-            >
+              title="Delete bookmark">
               <Trash2 size={13} />
             </button>
           </div>
@@ -87,12 +83,11 @@ export function BookmarkItem({
       </div>
 
       {isEditing ? (
-        <form 
-          onSubmit={handleSave} 
+        <form
+          onSubmit={handleSave}
           className="flex w-full items-center gap-1.5"
           onClick={stopHostCapture}
-          onMouseDown={stopHostCapture}
-        >
+          onMouseDown={stopHostCapture}>
           <input
             ref={inputRef}
             className="min-w-0 flex-1 rounded border border-purple-500 bg-neutral-950 px-2 py-1 text-sm text-white outline-none ring-0"
@@ -105,19 +100,17 @@ export function BookmarkItem({
             }}
           />
           <div className="ml-1 flex items-center gap-3">
-            <button 
-              type="submit" 
+            <button
+              type="submit"
               className="text-green-500 hover:text-green-400"
-              onMouseDown={stopHostCapture}
-            >
+              onMouseDown={stopHostCapture}>
               <Check size={16} />
             </button>
-            <button 
+            <button
               type="button"
               onClick={handleCancel}
               className="text-neutral-500 hover:text-white"
-              onMouseDown={stopHostCapture}
-            >
+              onMouseDown={stopHostCapture}>
               <X size={16} />
             </button>
           </div>
@@ -126,15 +119,17 @@ export function BookmarkItem({
         <button
           className="w-full text-left outline-none"
           onClick={() => {
-            log("Clicked Bookmark Entry:", { id: bookmark.id, title: bookmark.title })
+            log("Clicked Bookmark Entry:", {
+              id: bookmark.id,
+              title: bookmark.title
+            })
             navigateToBookmark(
               bookmark.platform,
               bookmark.conversationId,
               bookmark.turnId,
               { openInNewTab }
             )
-          }}
-        >
+          }}>
           <p className="line-clamp-2 text-sm leading-snug text-neutral-200 transition-colors group-hover:text-white">
             {bookmark.title}
           </p>
