@@ -3,9 +3,9 @@ module.exports = {
   mode: "jit",
   darkMode: "class",
   content: [
-      "./popup.tsx",
-      "./contents/**/*.{ts,tsx}",
-      "./components/**/*.{ts,tsx}"
-    ],
+    "./popup.tsx",
+    "./contents/**/*.{ts,tsx}",
+    "./components/**/*.{ts,tsx}"
+  ],
   plugins: []
 }
